@@ -4,3 +4,10 @@ ip link set dev eth1 up
 ip link set dev eth0 up
 ip route add default via 192.168.0.1
 cp shared/resolv.conf /etc/resolv.conf
+
+#bloquer le protocole icmp en FORWARD
+iptables -A FORWARD -p icmp -j DROP
+
+iptables -P INPUT DROP
+iptables -P OUTPUT DROP
+
