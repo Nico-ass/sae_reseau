@@ -13,11 +13,12 @@ iptables -A OUTPUT -p tcp --dport 443 -m conntrack --ctstate NEW,ESTABLISHED -j 
 #autorise les pings
 iptables -A INPUT -p icmp --icmp-type echo-reply -j ACCEPT
 iptables -A OUTPUT -p icmp --icmp-type echo-request -j ACCEPT
-iptables -A INPUT -p icmp --icmp-type echo-request -j ACCEPT
-iptables -A OUTPUT -p icmp --icmp-type echo-reply -j ACCEPT
 
+
+#règles forwarding
 iptables -A FORWARD -i eth1 -o eth0 -j ACCEPT
 iptables -A FORWARD -i eth0 -o eth1 -m state --state ESTABLISHED,RELATED -j ACCEPT
+
 #bloque tout
 iptables -P INPUT DROP
 iptables -P OUTPUT DROP
