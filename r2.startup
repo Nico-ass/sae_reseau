@@ -10,6 +10,13 @@ cp shared/resolv.conf /etc/resolv.conf
 #iptables -A OUTPUT -p tcp --dport 443 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
 iptables -A FORWARD -p tcp --dport 443 -j ACCEPT
 
+#autoriser le HTTP
+iptables -A FORWARD -p tcp --dport 80 -j ACCEPT
+
+#règles forwarding
+iptables -A FORWARD -i eth1 -o eth0 -j ACCEPT
+iptables -A FORWARD -i eth0 -o eth1 -m state --state ESTABLISHED,RELATED -j ACCEPT
+
 
 #autorise les pings
 iptables -A FORWARD -p icmp --icmp-type echo-reply -j ACCEPT
