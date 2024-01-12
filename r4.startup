@@ -5,14 +5,16 @@ ip link set dev eth1 up
 ip route add default via 192.168.0.1
 cp shared/resolv.conf /etc/resolv.conf
 
-#autorise les pings
-iptables -A FORWARD -p icmp --icmp-type echo-reply -j ACCEPT
-iptables -A FORWARD -p icmp --icmp-type echo-request -j ACCEPT
+#autoriser les pings
+iptables -A FORWARD -p icmp --icmp-type echo-reply -s 192.168.0.1 -j ACCEPT
+iptables -A FORWARD -p icmp --icmp-type echo-reply -d 192.168.0.1 -j ACCEPT
+iptables -A FORWARD -p icmp --icmp-type echo-request -s 192.168.0.1 -j ACCEPT
+iptables -A FORWARD -p icmp --icmp-type echo-request -d 192.168.0.1 -j ACCEPT
 
 
 #règles forwarding
 iptables -A FORWARD -i eth1 -o eth0 -j ACCEPT
-iptables -A FORWARD -i eth0 -o eth1 -m state --state ESTABLISHED,RELATED -j ACC>
+iptables -A FORWARD -i eth0 -o eth1 -m state --state ESTABLISHED,RELATED -j ACCEPT
 
 #HTTPS (pour installer le ssh)
 iptables -A FORWARD -p tcp --dport 443 -j ACCEPT
@@ -31,6 +33,15 @@ iptables -A FORWARD -p tcp --sport 22 -d 192.168.48.0/26 -j ACCEPT
 #service mails par SMTP
 iptables -A FORWARD -p tcp --sport 587 -d 192.168.48.1 -j ACCEPT
 iptables -A FORWARD -p tcp --dport 587 -s 192.168.48.1 -j ACCEPT
+
+#application
+iptables -A FORWARD -p tcp --dport 1234 -s 192.168.16.0/20 -j ACCEPT
+iptables -A FORWARD -p tcp --sport 1234 -d 192.168.16.0/20 -j ACCEPT
+iptables -A FORWARD -p tcp --dport 1234 -s 192.16.32.0/20 -j ACCEPT
+iptables -A FORWARD -p tcp --sport 1234 -d 192.16.32.0/20 -j ACCEPT
+iptables -A FORWARD -p tcp --dport 1234 -s 192.168.48.0/26 -j ACCEPT
+iptables -A FORWARD -p tcp --sport 1234 -d 192.168.48.0/26 -j ACCEPT
+
 
 iptables -P INPUT DROP
 iptables -P OUTPUT DROP
