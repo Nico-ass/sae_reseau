@@ -21,6 +21,13 @@ iptables -A FORWARD -p tcp --dport 587 -j ACCEPT
 #configuration appli par ssh(et SFTP)
 iptables -A FORWARD -p tcp --dport 22 -j ACCEPT
 
+#règles dns
+iptables -A FORWARD -p tcp --dport 53 -j ACCEPT
+iptables -A FORWARD -p tcp --sport 53 -j ACCEPT
+iptables -A FORWARD -p udp --dport 53 -j ACCEPT
+iptables -A FORWARD -p udp --sport 53 -j ACCEPT
+
+
 iptables -P INPUT DROP
 iptables -P OUTPUT DROP
 iptables -P FORWARD DROP
