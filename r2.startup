@@ -19,8 +19,8 @@ iptables -A FORWARD -p tcp --sport 80 -j ACCEPT
 #iptables -A FORWARD -i eth0 -o eth1 -m state --state ESTABLISHED,RELATED -j ACCEPT
 
 #SSH
-iptables -A FORWARD -p tcp --dport 22 -s 172.12.150.1 -j ACCEPT
-iptables -A FORWARD -p tcp --sport 22 -d 172.12.150.1 -j ACCEPT
+iptables -A FORWARD -p tcp --sport 22 -s 172.12.150.1 -j ACCEPT
+iptables -A FORWARD -p tcp --dport 22 -s 192.168.32.0/20 -j ACCEPT
 
 
 #autorise les pings
