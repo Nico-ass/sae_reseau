@@ -26,6 +26,13 @@ iptables -A FORWARD -p tcp --sport 587 -d 192.16.32.0/20 -s 192.168.48.1  -j ACC
 iptables -A FORWARD -p tcp --dport 587 -s 172.12.0.0/16 -d 192.168.48.1 -j ACCEPT
 iptables -A FORWARD -p tcp --sport 587 -d 172.12.0.0/16 -s 192.168.48.1  -j ACCEPT
 
+iptables -A FORWARD -p tcp --dport 587 -s 192.168.48.1 -d 192.168.16.0/20 -j ACCEPT
+iptables -A FORWARD -p tcp --sport 587 -d 192.168.48.1 -s 192.168.16.0/20 -j ACCEPT
+iptables -A FORWARD -p tcp --dport 587 -s 192.168.48.1 -d 192.16.32.0/20 -j ACCEPT
+iptables -A FORWARD -p tcp --sport 587 -d 192.168.48.1 -s 192.16.32.0/20 -j ACCEPT
+iptables -A FORWARD -p tcp --dport 587 -s 192.168.48.1 -d 172.12.0.0/16 -j ACCEPT
+iptables -A FORWARD -p tcp --sport 587 -d 192.168.48.1 -s 172.12.0.0/16 -j ACCEPT
+
 #règles ping
 iptables -A FORWARD -p icmp --icmp-type echo-reply -s 172.12.150.1 -j ACCEPT
 iptables -A FORWARD -p icmp --icmp-type echo-reply -d 172.12.150.1 -j ACCEPT
