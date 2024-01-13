@@ -13,14 +13,9 @@ iptables -A FORWARD -p tcp --sport 443 -j ACCEPT
 iptables -A FORWARD -p tcp --dport 80 -j ACCEPT
 iptables -A FORWARD -p tcp --sport 80 -j ACCEPT
 
-#règles forwarding
-#iptables -A FORWARD -i eth1 -o eth0 -j ACCEPT
-#iptables -A FORWARD -i eth0 -o eth1 -m state --state ESTABLISHED,RELATED -j ACCEPT
-
 #SSH
 iptables -A FORWARD -p tcp --sport 22 -s 172.12.150.1 -j ACCEPT
 iptables -A FORWARD -p tcp --dport 22 -s 192.168.16.0/20 -j ACCEPT
-
 
 #autorise les pings
 #iptables -A FORWARD -p icmp --icmp-type echo-reply -j ACCEPT
@@ -37,8 +32,6 @@ iptables -A FORWARD -p tcp --dport 1234 -s 192.168.16.0/20 -j ACCEPT
 #règles dns
 iptables -A FORWARD -p udp --dport 53 -j ACCEPT
 iptables -A FORWARD -p udp --sport 53 -j ACCEPT
-
-
 
 iptables -P INPUT DROP
 iptables -P OUTPUT DROP

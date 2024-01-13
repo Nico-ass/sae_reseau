@@ -13,10 +13,6 @@ iptables -A FORWARD -p tcp --sport 443 -j ACCEPT
 iptables -A FORWARD -p tcp --dport 80 -j ACCEPT
 iptables -A FORWARD -p tcp --sport 80 -j ACCEPT
 
-#règles forwarding
-#iptables -A FORWARD -i eth1 -o eth0 -j ACCEPT
-#iptables -A FORWARD -i eth0 -o eth1 -m state --state ESTABLISHED,RELATED -j ACCEPT
-
 #SSH
 iptables -A FORWARD -p tcp --sport 22 -s 172.12.150.1 -j ACCEPT
 iptables -A FORWARD -p tcp --dport 22 -s 192.168.48.0/26 -j ACCEPT
@@ -26,15 +22,6 @@ iptables -A FORWARD -p tcp --dport 22 -s 192.168.48.0/26 -j ACCEPT
 #iptables -A FORWARD -p icmp --icmp-type echo-request -j ACCEPT
 
 #service mails par SMTP
-#iptables -A FORWARD -p tcp --sport 587 -d 192.168.0.0/24 -j ACCEPT
-#iptables -A FORWARD -p tcp --dport 587 -s 192.168.0.1 -j ACCEPT
-#iptables -A FORWARD -p tcp --sport 587 -d 192.168.16.0/20 -j ACCEPT
-#iptables -A FORWARD -p tcp --dport 587 -s 192.168.16.0/20 -j ACCEPT
-#iptables -A FORWARD -p tcp --sport 587 -d 192.168.48.0/26 -j ACCEPT
-#iptables -A FORWARD -p tcp --dport 587 -s 192.168.48.0/26 -j ACCEPT
-#iptables -A FORWARD -p tcp --sport 587 -d 192.16.32.1 -j ACCEPT
-#iptables -A FORWARD -p tcp --dport 587 -s 192.16.32.1 -j ACCEPT
-
 iptables -A FORWARD -p tcp --sport 587 -d 192.168.16.0/20 -j ACCEPT
 iptables -A FORWARD -p tcp --dport 587 -s 192.168.16.0/20 -j ACCEPT
 iptables -A FORWARD -p tcp --sport 587 -d 172.12.0.0/16 -j ACCEPT
@@ -46,10 +33,9 @@ iptables -A FORWARD -p tcp --dport 587 -s 192.16.32.0/20 -j ACCEPT
 iptables -A FORWARD -p tcp --sport 1234 -s 172.12.150.1 -j ACCEPT
 iptables -A FORWARD -p tcp --dport 1234 -s 192.168.48.0/26 -j ACCEPT
 
-#règles dns
+#DNS
 iptables -A FORWARD -p udp --dport 53 -j ACCEPT
 iptables -A FORWARD -p udp --sport 53 -j ACCEPT
-
 
 iptables -P INPUT DROP
 iptables -P OUTPUT DROP
