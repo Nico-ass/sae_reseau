@@ -28,8 +28,13 @@ iptables -A FORWARD -i eth1 -o eth0 -j ACCEPT
 iptables -A FORWARD -i eth0 -o eth1 -m state --state ESTABLISHED,RELATED -j ACCEPT
 
 #SMTP
-iptables -A FORWARD -p tcp --dport 587 -j ACCEPT
-iptables -A FORWARD -p tcp --sport 587 -j ACCEPT
+iptables -A FORWARD -p tcp --dport 587 -s 192.168.16.0/20 -d 192.168.48.1 -j ACCEPT
+iptables -A FORWARD -p tcp --sport 587 -d 192.168.16.0/20 -s 192.168.48.1  -j ACCEPT
+iptables -A FORWARD -p tcp --dport 587 -s 192.16.32.0/20 -d 192.168.48.1  -j ACCEPT
+iptables -A FORWARD -p tcp --sport 587 -d 192.16.32.0/20 -s 192.168.48.1  -j ACCEPT
+iptables -A FORWARD -p tcp --dport 587 -s 172.12.0.0/16 -d 192.168.48.1 -j ACCEPT
+iptables -A FORWARD -p tcp --sport 587 -d 172.12.0.0/16 -s 192.168.48.1  -j ACCEPT
+
 
 
 #règles ping
