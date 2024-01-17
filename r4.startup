@@ -12,12 +12,16 @@ iptables -A FORWARD -p icmp --icmp-type echo-request -s 192.168.0.1 -j ACCEPT
 iptables -A FORWARD -p icmp --icmp-type echo-request -d 192.168.0.1 -j ACCEPT
 
 #HTTPS (pour installer le ssh)
-#iptables -A FORWARD -p tcp --dport 443 -j ACCEPT
-#iptables -A FORWARD -p tcp --sport 443 -j ACCEPT
+iptables -A FORWARD -p tcp --dport 443 -j ACCEPT
+iptables -A FORWARD -p tcp --sport 443 -j ACCEPT
 
 #HTTP
-#iptables -A FORWARD -p tcp --dport 80 -j ACCEPT
-#iptables -A FORWARD -p tcp --sport 80 -j ACCEPT 
+iptables -A FORWARD -p tcp --dport 80 -j ACCEPT
+iptables -A FORWARD -p tcp --sport 80 -j ACCEPT 
+
+#règles dns
+iptables -A FORWARD -p udp --dport 53 -j ACCEPT
+iptables -A FORWARD -p udp --sport 53 -j ACCEPT
 
 
 #SSH
@@ -53,7 +57,6 @@ iptables -A FORWARD -p tcp --dport 1234 -s 172.12.150.1  -j ACCEPT
 iptables -A FORWARD -p tcp --sport 1234 -s 192.168.16.0/20 -j ACCEPT
 iptables -A FORWARD -p tcp --sport 1234 -s 192.16.32.0/20 -j ACCEPT
 iptables -A FORWARD -p tcp --sport 1234 -s 192.168.48.0/26 -j ACCEPT
-
 
 iptables -P INPUT DROP
 iptables -P OUTPUT DROP
