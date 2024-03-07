@@ -18,8 +18,8 @@ iptables -A FORWARD -p icmp --icmp-type echo-request -d 172.12.150.1 -j ACCEPT
 
 
 #HTTPS (uniquement en tant que client)
-iptables -A FORWARD -p tcp --dport 443 -j ACCEPT -s 172.12.150.1 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
-iptables -A FORWARD -p tcp --sport 443 -j ACCEPT -d 172.12.150.1 -m conntrack --ctstarte ESTABLISHED -j ACCEPT 
+iptables -A FORWARD -p tcp --dport 443 -s 172.12.150.1 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+iptables -A FORWARD -p tcp --sport 443 -d 172.12.150.1 -m conntrack --ctstarte ESTABLISHED -j ACCEPT 
 
 #HTTP
 #iptables -A FORWARD -p tcp --dport 80 -j ACCEPT
